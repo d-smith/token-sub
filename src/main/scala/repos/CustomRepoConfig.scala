@@ -46,6 +46,7 @@ object CustomRepoConfig {
   def apply(args: Array[String]) : CustomRepoConfig = {
     args.toList match {
       case path :: basedir :: repos => new CustomRepoConfig(path, basedir, repos)
+      case _ => throw new IllegalArgumentException
     }
 
   }
