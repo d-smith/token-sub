@@ -1,5 +1,8 @@
 package repos
 
+trait RepoSpec
+case object DefaultRepositories extends RepoSpec
+case object Repositories extends RepoSpec
 
 class CustomRepoConfig private (configPath: String, basedir: String, repos: List[String]) {
   def dumpInputs : Unit = {
@@ -22,7 +25,7 @@ class CustomRepoConfig private (configPath: String, basedir: String, repos: List
     addedConfigR(new StringBuilder(), repos)
   }
 
-  def addReposToConfigInFile(reposToAdd: String) : String = {
+  def addReposToConfigInFile(reposToAdd: String, repoType: RepoSpec) : String = {
     import props.PropertyMapFactory.propertyMapFromFile
     import collection.JavaConverters.enumerationAsScalaIteratorConverter
 
@@ -33,12 +36,20 @@ class CustomRepoConfig private (configPath: String, basedir: String, repos: List
        val (k,v)  = keyvalpair
        k match {
          case "org.ops4j.pax.url.mvn.defaultRepositories" => {
-           builder.append(k + "=" + v + reposToAdd + '\n')
+           if(repoType == DefaultRepositories) builder.append(k + "=" + v + reposToAdd + '\n')
          }
+         case "org.ops4j.pax.url.mvn.repositories" => {
+           if(repoType == Repositories) builder.append(k + "=" + v + reposToAdd + '\n')
+         }
+
          case _ => builder.append(k + "=" + v + '\n')
        }
      })
     builder.toString
+  }
+
+  def emitFabLocalReposConfig = {
+
   }
 }
 
