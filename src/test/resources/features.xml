@@ -7,6 +7,7 @@
 brokerURL = ###SAMPLE_FEATURE_BROKER_URL###
 userName = ###SAMPLE_FEATURE_USER_NAME###
 password = ###SAMPLE_FEATURE_PASSWORD###
+empty = ###SAMPLE_NO_VALUE_GOES_HERE###
         </config>
     </feature>
 </features>
