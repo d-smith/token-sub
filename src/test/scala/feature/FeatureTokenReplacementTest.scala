@@ -12,6 +12,7 @@ class FeatureTokenReplacementTest extends FunSuite
     val updated = replaceTokenizedParamsFromMap(propMap, "src/test/resources/features.xml")
     println(updated)
     assert(updated.contains("brokerURL  = vm://amq") === true)
+    assert(updated.contains("userName  = smx$") === true)
     assert(updated.contains("empty  = ") === true)
   }
 }
